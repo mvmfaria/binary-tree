@@ -1,4 +1,6 @@
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BinaryTreeRecursive<T>{
     protected Node<T> rootNode;
@@ -175,7 +177,22 @@ public class BinaryTreeRecursive<T>{
         }
     }
 
-    
+    //Percorrer em nível. Vamos utilizar fila do Java para auxiliar.
+    //São necessários parâmetros para a função?
+    public void printBreadthFirstSearch() {
+        Queue<Node<T>> queue = new LinkedList<Node<T>>();
+        queue.add(this.rootNode);
+        while (!queue.isEmpty()) {
+            Node<T> node = queue.remove();
+            System.out.print(node.getValue() + " ");
+            if (node.getLeftNode() != null) {
+                queue.add(node.getLeftNode());
+            }
+            if (node.getRightNode() != null) {
+                queue.add(node.getRightNode());
+            }
+        }
+    }
     
     // Getters and Setters
     public Node<T> getRootNode() {
