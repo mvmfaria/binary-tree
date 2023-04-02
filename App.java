@@ -18,8 +18,12 @@ public class App {
         tree.insertNode(55);
         tree.insertNode(80);
 
-         tree.printIndented(tree.getRootNode(), "", true);
+        tree.printIndented(tree.getRootNode(), "", true);
         tree.printBreadthFirstSearch();
+        System.out.println("\n"+ "menor: ");
+        tree.getSmaller(tree.rootNode);
+        System.out.println("maior: ");
+        tree.getBigger(tree.rootNode);
 
     }
 }

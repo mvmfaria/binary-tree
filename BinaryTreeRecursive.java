@@ -177,7 +177,7 @@ public class BinaryTreeRecursive<T>{
         }
     }
 
-    //Percorrer em nível. Vamos utilizar fila do Java para auxiliar.
+    //Percorrer em nível. Vamos utilizar fila do Java para auxiliar. Dá pra fazer recursivo, só não acho que é necessário.
     //São necessários parâmetros para a função?
     public void printBreadthFirstSearch() {
         Queue<Node<T>> queue = new LinkedList<Node<T>>();
@@ -191,6 +191,23 @@ public class BinaryTreeRecursive<T>{
             if (node.getRightNode() != null) {
                 queue.add(node.getRightNode());
             }
+        }
+    }
+
+    //Maior e menor elemento.
+    public void getSmaller(Node<T> parent) {
+        if (parent.getLeftNode() != null) {
+            getSmaller(parent.getLeftNode());
+        } else {
+            System.out.println(parent.getValue());
+        }
+    }
+
+    public void getBigger(Node<T> parent) {
+        if (parent.getRightNode() != null) {
+            getBigger(parent.getRightNode());
+        } else {
+            System.out.println(parent.getValue());
         }
     }
     
@@ -226,4 +243,6 @@ public class BinaryTreeRecursive<T>{
             countNodes(node.getRightNode());
         }
     }
+
+    
 }
