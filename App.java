@@ -22,10 +22,9 @@ public class App {
 
         tree.printIndented(tree.getRootNode(), "", true);
         tree.printBreadthFirstSearch();
-        System.out.println("\n"+ "menor: ");
-        tree.getSmaller(tree.rootNode);
-        System.out.println("maior: ");
-        tree.getBigger(tree.rootNode);
+        System.out.println("\n"+ "menor: " + tree.getMin());
+        System.out.println("maior: " + tree.getMax());
+        
 
     }
 }

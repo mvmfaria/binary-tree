@@ -192,19 +192,28 @@ public class BinaryTreeRecursive<T>{
     }
 
     //Maior e menor elemento.
-    public void getSmaller(Node<T> parent) {
+
+    public T getMin(){
+        return getMinRecursive(rootNode);
+    }
+
+    public T getMax(){
+        return getMaxRecursive(rootNode);
+    }
+
+    private T getMinRecursive(Node<T> parent) {
         if (parent.getLeftNode() != null) {
-            getSmaller(parent.getLeftNode());
+            return getMinRecursive(parent.getLeftNode());
         } else {
-            System.out.println(parent.getValue());
+            return parent.getValue();
         }
     }
 
-    public void getBigger(Node<T> parent) {
+    private T getMaxRecursive(Node<T> parent) {
         if (parent.getRightNode() != null) {
-            getBigger(parent.getRightNode());
+            return getMaxRecursive(parent.getRightNode());
         } else {
-            System.out.println(parent.getValue());
+            return parent.getValue();
         }
     }
     
