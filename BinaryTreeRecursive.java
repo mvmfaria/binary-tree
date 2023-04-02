@@ -15,9 +15,16 @@ public class BinaryTreeRecursive<T>{
         // Creating node
         Node<T> newNode = new Node<T>(value);
         
-        // Testing if the root node is null
-        if(this.rootNode.getValue() == null){
-            this.rootNode.setValue(newNode.getValue());
+        // Testing if the root node is null 
+        // if(this.rootNode.getValue() == null){
+            //     this.rootNode.setValue(newNode.getValue());
+            // } else{
+                //     insertNodeRecursive(this.rootNode, newNode);
+                // }   
+        
+        //(foi necessário uma alteração nessa verificação, pois, caso o root não existisse, não conseguiríamos acessar os métodos getValue() and setValue()).
+        if(this.rootNode == null){
+            this.rootNode = newNode;
         } else{
             insertNodeRecursive(this.rootNode, newNode);
         }
