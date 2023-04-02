@@ -33,20 +33,17 @@ public class BinaryTreeRecursive<T>{
     }
 
     private void insertNodeRecursive(Node<T> currentNode, Node<T> newNode){       
-        // Se encontrar o valor igual, não executa evitando adicionar valor igual
-        if(!(comparator.compare(newNode.getValue(), currentNode.getValue()) == 0)){          
-            if(comparator.compare(newNode.getValue(), currentNode.getValue()) > 0){
-                if(!currentNode.hasRight()){
-                    currentNode.setRightNode(newNode);
-                }else{
-                    insertNodeRecursive(currentNode.getRightNode(), newNode);
-                }
+        if(comparator.compare(newNode.getValue(), currentNode.getValue()) > 0){
+            if(!currentNode.hasRight()){
+                currentNode.setRightNode(newNode);
             }else{
-                if(!currentNode.hasLeft()){
-                    currentNode.setLeftNode(newNode);
-                }else{
-                    insertNodeRecursive(currentNode.getLeftNode(), newNode);
-                }
+                insertNodeRecursive(currentNode.getRightNode(), newNode);
+            }
+        }else{
+            if(!currentNode.hasLeft()){
+                currentNode.setLeftNode(newNode);
+            }else{
+                insertNodeRecursive(currentNode.getLeftNode(), newNode);
             }
         }
     }
