@@ -19,7 +19,7 @@ public class Student implements Comparable<Student>{
     }
     
     @Override
-    public int compareTo(Student a) {
+    public int compareTo(Student a){
         /* if (this.registration < a.registration)
             return -1;
         else
@@ -31,45 +31,27 @@ public class Student implements Comparable<Student>{
         
     }
 
-    /**
-     * @return the name
-     */
-    public String getname() {
+    public String getName(){
         return name;
     }
 
-    /**
-     * @param name the name to set
-     */
-    public void setname(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-    /**
-     * @return the registration
-     */
-    public int getRegistration() {
+    public int getRegistration(){
         return registration;
     }
 
-    /**
-     * @param registration the registration to set
-     */
-    public void setRegistration(int registration) {
+    public void setRegistration(int registration){
         this.registration = registration;
     }
 
-    /**
-     * @return the grade
-     */
-    public int getgrade() {
+    public int getGrade(){
         return grade;
     }
 
-    /**
-     * @param grade the grade to set
-     */
-    public void setgrade(int grade) {
+    public void setGrade(int grade){
         this.grade = grade;
     }
     
