@@ -1,5 +1,6 @@
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class BinaryTreeRecursive<T>{
@@ -55,27 +56,29 @@ public class BinaryTreeRecursive<T>{
     }
 
     private Counter<T> searchNodeRecursive(T value, Counter<T> counter){
-        if(comparator.compare(value, counter.getNode().getValue()) == 0){
-            return counter;
-        }else{
-            if(comparator.compare(value, counter.getNode().getValue()) > 0){
-                if(!counter.getNode().hasRight()){
-                    return null;
-                }else{
-                    counter.increment();
-                    counter.setNode(counter.getNode().getRightNode());
-                    return searchNodeRecursive(value, counter);
-                }
+        if(counter.getNode() != null){
+            if(comparator.compare(value, counter.getNode().getValue()) == 0){
+                return counter;
             }else{
-                if(!counter.getNode().hasLeft()){
-                    return null;
+                if(comparator.compare(value, counter.getNode().getValue()) > 0){
+                    if(!counter.getNode().hasRight()){
+                        return null;
+                    }else{
+                        counter.increment();
+                        counter.setNode(counter.getNode().getRightNode());
+                        return searchNodeRecursive(value, counter);
+                    }
                 }else{
-                    counter.increment();
-                    counter.setNode(counter.getNode().getLeftNode());
-                    return searchNodeRecursive(value, counter);
+                    if(!counter.getNode().hasLeft()){
+                        return null;
+                    }else{
+                        counter.increment();
+                        counter.setNode(counter.getNode().getLeftNode());
+                        return searchNodeRecursive(value, counter);
+                    }
                 }
             }
-        }
+        }return null;
     }
 
     public void deleteItem(T value){
@@ -96,26 +99,34 @@ public class BinaryTreeRecursive<T>{
                 }
             }
         }
-
         // Caso 1: Nó sem filhos
         if(!currentNode.hasLeft() && !currentNode.hasRight()){
-            if( comparator.compare(currentNode.getValue(), parentNode.getValue()) > 0){
-                parentNode.setRightNode(null);
+            if(parentNode != null){
+                if( comparator.compare(currentNode.getValue(), parentNode.getValue()) > 0){
+                    parentNode.setRightNode(null);
+                }else{
+                    parentNode.setLeftNode(null);
+                }
             }else{
-                parentNode.setLeftNode(null);
+                this.rootNode = null;
             }
         }
 
         // Caso 2: Nó com um filho
-        if(currentNode.hasLeft() ^ currentNode.hasRight()){
+        if((currentNode.hasLeft() ^ currentNode.hasRight())){
             Node<T> case2Aux;
             if(currentNode.hasLeft()) case2Aux = currentNode.getLeftNode();
             else case2Aux = currentNode.getRightNode();
 
-            if(comparator.compare(currentNode.getValue(), parentNode.getValue()) > 0){
-                parentNode.setRightNode(case2Aux);
+            if(parentNode != null){
+                if(comparator.compare(currentNode.getValue(), parentNode.getValue()) > 0){
+                    parentNode.setRightNode(case2Aux);
+                }else{
+                    parentNode.setLeftNode(case2Aux);
+                }
             }else{
-                parentNode.setLeftNode(case2Aux);
+                if(currentNode.hasLeft()) this.rootNode = currentNode.getLeftNode();
+                else this.rootNode = currentNode.getRightNode();
             }
         }
 
@@ -133,6 +144,14 @@ public class BinaryTreeRecursive<T>{
 
         }
 
+    }
+
+    public void createListInOrder(Node<T> node, List<T> elements){
+        if(node != null){
+            this.createListInOrder(node.getLeftNode(), elements);
+            elements.add(node.getValue());
+            this.createListInOrder(node.getRightNode(), elements);
+        }
     }
 
     // Print methods
@@ -161,22 +180,26 @@ public class BinaryTreeRecursive<T>{
     }
     
     public void printIndented(Node<T> node, String indent, boolean last) {
-        System.out.print(indent);
-        if (last) {
-            System.out.print("└─");
-            indent += "  ";
-        } else {
-            System.out.print("├─");
-            indent += "│ ";
-        }
-        System.out.println(node.getValue());
-
-        if (node.getRightNode() != null) {
-            printIndented(node.getRightNode(), indent, node.getLeftNode() == null);
-        }
-
-        if (node.getLeftNode() != null) {
-            printIndented(node.getLeftNode(), indent, true);
+        if(this.rootNode != null){
+            System.out.print(indent);
+            if (last) {
+                System.out.print("└─");
+                indent += "  ";
+            } else {
+                System.out.print("├─");
+                indent += "│ ";
+            }
+            System.out.println(node.getValue());
+    
+            if (node.getRightNode() != null) {
+                printIndented(node.getRightNode(), indent, node.getLeftNode() == null);
+            }
+    
+            if (node.getLeftNode() != null) {
+                printIndented(node.getLeftNode(), indent, true);
+            }
+        }else{
+            System.out.println("Árvore está vazia!");
         }
     }
 
@@ -198,7 +221,7 @@ public class BinaryTreeRecursive<T>{
     }
 
     //Maior e menor elemento.
-    public Node<T> getMin(){
+    public T getMin(){
         return getMinRecursive(rootNode);
     }
 
@@ -206,11 +229,11 @@ public class BinaryTreeRecursive<T>{
         return getMaxRecursive(rootNode);
     }
 
-    private Node<T> getMinRecursive(Node<T> parent) {
+    private T getMinRecursive(Node<T> parent) {
         if (parent.getLeftNode() != null) {
             return getMinRecursive(parent.getLeftNode());
         } else {
-            return parent;
+            return parent.getValue();
         }
     }
 
