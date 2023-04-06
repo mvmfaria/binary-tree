@@ -6,12 +6,12 @@ import java.util.Scanner;
 
 public class App{
 
-    public static Node<Student> searchByRegistration(Integer registration, BinaryTreeRecursive<Student> tree){
+    public static Counter<Student> searchByRegistration(Integer registration, BinaryTreeRecursive<Student> tree){
         Student aux = new Student(registration, null, 0);
         return tree.searchNode(aux);        
     }
 
-    public static Node<Student> searchByName(String name, BinaryTreeRecursive<Student> tree){
+    public static Counter<Student> searchByName(String name, BinaryTreeRecursive<Student> tree){
         Student aux = new Student(0, name, 0);
         return tree.searchNode(aux);        
     }
@@ -19,7 +19,7 @@ public class App{
     public static void deleteByName(String name, BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN){
         
         try{
-            Student aux = searchByName(name, treeN).getValue();
+            Student aux = searchByName(name, treeN).getNode().getValue();
 
             treeN.deleteItem(aux);
             treeR.deleteItem(aux);
@@ -33,7 +33,7 @@ public class App{
     public static void deleteByRegistration(Integer registration, BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN){
         
         try{
-            Student aux = searchByRegistration(registration, treeR).getValue();
+            Student aux = searchByRegistration(registration, treeR).getNode().getValue();
 
             treeN.deleteItem(aux);
             treeR.deleteItem(aux);
@@ -123,15 +123,13 @@ public class App{
         switch (choice) {
             case 1:
             try{
-                Node<Student> aux = searchByRegistration(2000000007, tree);
+                Counter<Student> aux= searchByRegistration(2000000007, tree);
 
-                System.out.println("Aluno: " + aux.getValue().getName());
-                System.out.println("Matricula: " + aux.getValue().getRegistration());
-                System.out.println("Nota: " + aux.getValue().getGrade());
-                System.out.println("Quantos nos foram percorridos: ?");
+                System.out.println("Aluno: " + aux.getNode().getValue().getName());
+                System.out.println("Matricula: " + aux.getNode().getValue().getRegistration());
+                System.out.println("Nota: " + aux.getNode().getValue().getGrade());
+                System.out.println("Quantos nos foram percorridos: " + aux.getCounter());
                 tree.printIndented(tree.rootNode, "", true);
-                System.out.println("\n\n\n\n\n");
-                treeName.printIndented(treeName.rootNode, "", true);
                 
             }catch(Exception e){
                 System.out.println("Aluno não existe!");
@@ -139,7 +137,7 @@ public class App{
             }
                 break;
             case 2:
-                Student aux2 = treeName.searchNode(new Student("Kelimue Nonabole")).getValue();
+                Student aux2 = treeName.searchNode(new Student("Kelimue Nonabole")).getNode().getValue();
                 System.out.println("Aluno: " + aux2.getName());
                 System.out.println("Matricula: " + aux2.getRegistration());
                 System.out.println("Nota: " + aux2.getGrade());

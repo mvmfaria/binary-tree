@@ -48,25 +48,31 @@ public class BinaryTreeRecursive<T>{
         }
     }
     
-    public Node<T> searchNode(T value){
-        return searchNodeRecursive(value, getRootNode());
+    public Counter<T> searchNode(T value){
+        Counter<T> counter = new Counter<>(getRootNode());
+        counter.increment();
+        return searchNodeRecursive(value, counter);
     }
 
-    private Node<T> searchNodeRecursive(T value, Node<T> currentNode){
-        if(comparator.compare(value, currentNode.getValue()) == 0){
-            return currentNode;
+    private Counter<T> searchNodeRecursive(T value, Counter<T> counter){
+        if(comparator.compare(value, counter.getNode().getValue()) == 0){
+            return counter;
         }else{
-            if(comparator.compare(value, currentNode.getValue()) > 0){
-                if(!currentNode.hasRight()){
+            if(comparator.compare(value, counter.getNode().getValue()) > 0){
+                if(!counter.getNode().hasRight()){
                     return null;
                 }else{
-                    return searchNodeRecursive(value, currentNode.getRightNode());
+                    counter.increment();
+                    counter.setNode(counter.getNode().getRightNode());
+                    return searchNodeRecursive(value, counter);
                 }
             }else{
-                if(!currentNode.hasLeft()){
+                if(!counter.getNode().hasLeft()){
                     return null;
                 }else{
-                    return searchNodeRecursive(value, currentNode.getLeftNode());
+                    counter.increment();
+                    counter.setNode(counter.getNode().getLeftNode());
+                    return searchNodeRecursive(value, counter);
                 }
             }
         }
