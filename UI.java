@@ -8,6 +8,7 @@ public class UI {
     }
 
     public static void printSpootifyLogo(){
+        
         System.out.println("\u001B[32m\n"
         + "\n _     _                          _"                 
         + "\n| |   (_)                        | |                "

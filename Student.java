@@ -3,11 +3,18 @@ public class Student implements Comparable<Student>{
     private int registration;
     private int grade;
     
-    
-    public Student(int registration ,String name, int grade){
+    public Student(int registration, String name, int grade){
         this.name = name;
         this.registration = registration;
         this.grade = grade;
+    }
+
+    public Student(String name){
+        this.name = name;
+    }
+    
+    public Student(int registration) {
+        this.registration = registration;
     }
     
     @Override
@@ -28,7 +35,6 @@ public class Student implements Comparable<Student>{
                 else return 0;*/
         
         return Integer.compare(this.registration, a.registration);
-        
     }
 
     public String getName(){

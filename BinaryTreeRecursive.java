@@ -192,8 +192,7 @@ public class BinaryTreeRecursive<T>{
     }
 
     //Maior e menor elemento.
-
-    public T getMin(){
+    public Node<T> getMin(){
         return getMinRecursive(rootNode);
     }
 
@@ -201,11 +200,11 @@ public class BinaryTreeRecursive<T>{
         return getMaxRecursive(rootNode);
     }
 
-    private T getMinRecursive(Node<T> parent) {
+    private Node<T> getMinRecursive(Node<T> parent) {
         if (parent.getLeftNode() != null) {
             return getMinRecursive(parent.getLeftNode());
         } else {
-            return parent.getValue();
+            return parent;
         }
     }
 
@@ -249,6 +248,20 @@ public class BinaryTreeRecursive<T>{
             countNodes(node.getRightNode());
         }
     }
+
+    /*Método para auxiliar o clear da tela.*/
+    public void clearScreen() {
+        try {
+           if (System.getProperty("os.name").contains("Windows")) {
+              new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+           } else {
+              System.out.print("\033[H\033[2J");
+              System.out.flush();
+           }
+        } catch (Exception ex) {
+           System.err.println("Error: " + ex.getMessage());
+        }
+     }
 
     
 }

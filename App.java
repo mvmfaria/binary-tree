@@ -22,7 +22,6 @@ public class App {
             line = buffer.readLine(); //Reading again to ignore first line.
             
             while (line != null) {
-
                 String[] fields = line.split(";");
 
                 Integer resgistration = Integer.parseInt(fields[0]);
@@ -56,57 +55,66 @@ public class App {
         // tree.insertNode(55);
         // tree.insertNode(80);
 
-        tree.printIndented(tree.getRootNode(), "", true);
-        tree.printBreadthFirstSearch();
-        System.out.println("\n"+ "menor: " + tree.getMin());
-        System.out.println("maior: " + tree.getMax());
+        // tree.printIndented(tree.getRootNode(), "", true);
+        // tree.printBreadthFirstSearch();
+        // System.out.println("\n"+ "menor: " + tree.getMin());
+        // System.out.println("maior: " + tree.getMax());
 
         //Created using ChatGebestafera. 
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
         do {
-            System.out.println("Escolha uma opção:");
-            System.out.println("1. Busca por matricula");
-            System.out.println("2. Busca por nome");
-            System.out.println("3. Excluir por nome");
-            System.out.println("4. Excluir por nome");
-            System.out.println("5. Incluir aluno");
-            System.out.println("6. Estatísticas (por matricula)");
-            System.out.println("7. Estatísticas (por nome)");
-            System.out.println("8. Sair");
-            System.out.print("Digite sua escolha: ");
-            choice = scanner.nextInt();
-            switch (choice) {
-                case 1:
-                System.out.println("Você escolheu a opção 1");
+        System.out.println("Escolha uma opção:");
+        System.out.println("1. Busca por matricula");
+        System.out.println("2. Busca por nome");
+        System.out.println("3. Excluir por nome");
+        System.out.println("4. Excluir por nome");
+        System.out.println("5. Incluir aluno");
+        System.out.println("6. Estatísticas (por matricula)");
+        System.out.println("7. Estatísticas (por nome)");
+        System.out.println("8. Sair");
+        System.out.print("Digite sua escolha: ");
+        choice = scanner.nextInt();
+        switch (choice) {
+            case 1:
+                Student aux = tree.searchNode(new Student(2000000007)).getValue();
+                System.out.println("Aluno: " + aux.getName());
+                System.out.println("Matricula: " + aux.getName());
+                System.out.println("Nota: " + aux.getGrade());
+                System.out.println("Quantos nos foram percorridos: ?");
                 break;
-                case 2:
-                System.out.println("Você escolheu a opção 2");
-                break;
-                case 3:
+            case 2:
+                Student aux2 = tree.searchNode(new Student("Kelimue Nonabole")).getValue();
+                System.out.println("Aluno: " + aux2.getName());
+                System.out.println("Matricula: " + aux2.getName());
+                System.out.println("Nota: " + aux2.getGrade());
+                System.out.println("Quantos nos foram percorridos: ?");
+                
+            case 3:
                 System.out.println("Você escolheu a opção 3");
                 break;
-                case 4:
+            case 4:
                 System.out.println("Você escolheu a opção 4");
                 break;
-                case 5:
-                System.out.println("Você escolheu a opção 5");
+            case 5:
+                //Necessário receber os dados e incluir em ambas as árvores.
                 break;
-                case 6:
+            case 6:
                 System.out.println("Você escolheu a opção 6");
                 break;
-                case 7:
+            case 7:
                 System.out.println("Você escolheu a opção 7");
                 break;
-                case 8:
+            case 8:
                 System.out.println("Você escolheu a opção 8");
                 break;
-                default:
+            default:
                 System.out.println("Opção inválida. Tente novamente.");
                 break;
-            }
+        }
+            /*Apenas para testar.*/
+            // tree.clearScreen();
         } while (choice != 8);
-
         scanner.close();
    }
 }
