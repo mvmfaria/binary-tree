@@ -4,16 +4,60 @@ import java.io.IOException;
 import java.util.Comparator;
 import java.util.Scanner;
 
-public class App {
+public class App{
+
+    public static Node<Student> searchByRegistration(Integer registration, BinaryTreeRecursive<Student> tree){
+        Student aux = new Student(registration, null, 0);
+        return tree.searchNode(aux);        
+    }
+
+    public static Node<Student> searchByName(String name, BinaryTreeRecursive<Student> tree){
+        Student aux = new Student(0, name, 0);
+        return tree.searchNode(aux);        
+    }
+
+    public static void deleteByName(String name, BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN){
+        
+        try{
+            Student aux = searchByName(name, treeN).getValue();
+
+            treeN.deleteItem(aux);
+            treeR.deleteItem(aux);
+            System.out.println("Deletou namoral");
+
+        }catch(Exception e){
+            System.out.println("Deu ruim");
+        }
+    }
+
+    public static void deleteByRegistration(Integer registration, BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN){
+        
+        try{
+            Student aux = searchByRegistration(registration, treeR).getValue();
+
+            treeN.deleteItem(aux);
+            treeR.deleteItem(aux);
+            System.out.println("Deletou namoral");
+
+        }catch(Exception e){
+            System.out.println("Deu ruim");
+        }
+    }
+
+    public static void insertOnTree(Student student, BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN){
+        treeN.insertNode(student);
+        treeR.insertNode(student);
+    }
     public static void main(String[] args) {
 
         //Pre created file.
-        String file = "geradorarquivos\\entradaBalanceada10.txt";
+        String file = "./geradorarquivos/entradaBalanceada10.txt";
 
-        //StudentNameComparator nameComparator = new StudentNameComparator();
+        StudentNameComparator nameComparator = new StudentNameComparator();
         StudentRegistrationComparator resgistrationComparator = new StudentRegistrationComparator();
 
         BinaryTreeRecursive<Student> tree = new BinaryTreeRecursive<>(resgistrationComparator);
+        BinaryTreeRecursive<Student> treeName = new BinaryTreeRecursive<>(nameComparator);
         
         //Filling a tree basead on a file.
         try (BufferedReader buffer = new BufferedReader(new FileReader(file))) {
@@ -31,6 +75,7 @@ public class App {
                 Student student = new Student(resgistration, name, grade);
 
                 tree.insertNode(student);
+                treeName.insertNode(student);
 
                 line = buffer.readLine();
             }
@@ -77,21 +122,35 @@ public class App {
         choice = scanner.nextInt();
         switch (choice) {
             case 1:
-                Student aux = tree.searchNode(new Student(2000000007)).getValue();
-                System.out.println("Aluno: " + aux.getName());
-                System.out.println("Matricula: " + aux.getName());
-                System.out.println("Nota: " + aux.getGrade());
+            try{
+                Node<Student> aux = searchByRegistration(2000000007, tree);
+
+                System.out.println("Aluno: " + aux.getValue().getName());
+                System.out.println("Matricula: " + aux.getValue().getRegistration());
+                System.out.println("Nota: " + aux.getValue().getGrade());
                 System.out.println("Quantos nos foram percorridos: ?");
+                tree.printIndented(tree.rootNode, "", true);
+                System.out.println("\n\n\n\n\n");
+                treeName.printIndented(treeName.rootNode, "", true);
+                
+            }catch(Exception e){
+                System.out.println("Aluno não existe!");
+
+            }
                 break;
             case 2:
-                Student aux2 = tree.searchNode(new Student("Kelimue Nonabole")).getValue();
+                Student aux2 = treeName.searchNode(new Student("Kelimue Nonabole")).getValue();
                 System.out.println("Aluno: " + aux2.getName());
-                System.out.println("Matricula: " + aux2.getName());
+                System.out.println("Matricula: " + aux2.getRegistration());
                 System.out.println("Nota: " + aux2.getGrade());
                 System.out.println("Quantos nos foram percorridos: ?");
                 
             case 3:
                 System.out.println("Você escolheu a opção 3");
+                deleteByName("Pajeheur Polix", tree, treeName);
+                tree.printIndented(tree.rootNode, "", true);
+                System.out.println("\n\n\n\n\n");
+                treeName.printIndented(treeName.rootNode, "", true);
                 break;
             case 4:
                 System.out.println("Você escolheu a opção 4");
@@ -116,5 +175,5 @@ public class App {
             // tree.clearScreen();
         } while (choice != 8);
         scanner.close();
-   }
+    }
 }

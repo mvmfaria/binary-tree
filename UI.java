@@ -34,9 +34,14 @@ public class UI {
         Integer actualCommand;
 
         System.out.println("==================================================================================+++---");
-        System.out.println("Como deseja testar o algoritmo de Árvore Binária?");
+        System.out.println("Escolha uma das opçôes abaixo");
         System.out.println("==================================================================================+++---");
-        System.out.println("1. Inserir dados via terminal | 2. Usar arquivo salvo em memória");
+        System.out.println("1. Busca por matricula\t| 2. Busca por nome ");
+        System.out.println("3. Excluir por nome\t| 4. Excluir por nome\t");
+        System.out.println("5. Incluir aluno\t| 6. Estatísticas (por matricula)");
+        System.out.println("7. Estatísticas (por nome)");
+        System.out.println("8. Sair");
+        
 
         actualCommand = dataScanner.nextInt();
         dataScanner.nextLine();

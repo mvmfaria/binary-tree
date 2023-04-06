@@ -62,6 +62,7 @@ public class Student implements Comparable<Student>{
     }
     
     public String toString(){
-        return Integer.toString(registration);
+        // return Integer.toString(registration);
+        return name;
     }
 }
