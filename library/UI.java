@@ -1,3 +1,4 @@
+package library;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,37 +18,49 @@ public class UI {
 
     public void searchByRegistration(BinaryTreeRecursive<Student> tree){
         clearTerminal();
-        System.out.println("==================================================================================+++---");
+        System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
         System.out.println("Insira o número de mátricula");
         System.out.println("==================================================================================+++---");
         
+        try{
 
-        Student aux = new Student(scanner.nextInt(), null, 0);
-        scanner.nextLine();
+            Student aux = new Student(scanner.nextInt(), null, 0);
+            scanner.nextLine();
 
-        clearTerminal();
-        if(tree.searchNode(aux) != null){
+            clearTerminal();
+            if(tree.searchNode(aux) != null){
+                
+                Counter<Student> auxCounter = tree.searchNode(aux);
+                System.out.println("==================================================================================+++---");
+                System.out.println("DADOS DO ALUNO ------------+");
+                System.out.println("Nome: " + auxCounter.getNode().getValue().getName());
+                System.out.println("Matricula: " + auxCounter.getNode().getValue().getRegistration());
+                System.out.println("Nota: " + auxCounter.getNode().getValue().getGrade());
+                System.out.println("Quantos nos foram percorridos: " + auxCounter.getCounter());
+                System.out.println("==================================================================================+++---");
+            }else{
+                System.out.println("\033[41m                                                                                        ");
+                System.out.println("\033[41m                               ALUNO NÃO ENCONTRADO                                     ");
+                System.out.println("                                                                                        \033[0;0m\n");
+            }
+            pressEnter("Aperte 'ENTER' para voltar ao menu");
+
             
-            Counter<Student> auxCounter = tree.searchNode(aux);
-            System.out.println("==================================================================================+++---");
-            System.out.println("DADOS DO ALUNO ------------+");
-            System.out.println("Nome: " + auxCounter.getNode().getValue().getName());
-            System.out.println("Matricula: " + auxCounter.getNode().getValue().getRegistration());
-            System.out.println("Nota: " + auxCounter.getNode().getValue().getGrade());
-            System.out.println("Quantos nos foram percorridos: " + auxCounter.getCounter());
-            System.out.println("==================================================================================+++---");
-        }else{
-            System.out.println("==================================================================================+++---");
-            System.out.println("ALUNO NÃO ENCONTRADO ++++++++++++-");
-            System.out.println("==================================================================================+++---");
+        }catch(Exception e){
+            System.out.println("\033[41m                                                                                        ");
+            System.out.println("\033[41m                          Digite um número inteiro                                      ");
+            System.out.println("                                                                                        \033[0;0m\n");
+            pressEnter("Aperte 'ENTER' para voltar ao menu");
+            scanner.nextLine();
         }
-        pressEnter("Aperte 'ENTER' para voltar ao menu");
+        
+
     }
 
     public void searchByName(BinaryTreeRecursive<Student> tree){
 
         clearTerminal();
-        System.out.println("==================================================================================+++---");
+        System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
         System.out.println("Insira o nome do aluno");
         System.out.println("==================================================================================+++---");
         
@@ -65,9 +78,9 @@ public class UI {
             System.out.println("Quantos nos foram percorridos: " + auxCounter.getCounter());
             System.out.println("==================================================================================+++---");
         }else{
-            System.out.println("==================================================================================+++---");
-            System.out.println("ALUNO NÃO ENCONTRADO ++++++++++++-");
-            System.out.println("==================================================================================+++---");
+            System.out.println("\033[41m                                                                                        ");
+            System.out.println("\033[41m                               ALUNO NÃO ENCONTRADO                                     ");
+            System.out.println("                                                                                        \033[0;0m\n");
         }
         pressEnter("Aperte 'ENTER' para voltar ao menu");
         
@@ -76,63 +89,71 @@ public class UI {
     public void deleteByName(BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN){
         
         clearTerminal();
-        System.out.println("==================================================================================+++---");
+        System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
         System.out.println("Insira o nome do aluno");
         System.out.println("==================================================================================+++---");
         String name = scanner.nextLine();
         
         clearTerminal();
-        System.out.println("==================================================================================+++---");
         try{
             Student aux = new Student(0, name, 0);
             Counter<Student> auxCounter = treeN.searchNode(aux);
-
             treeN.deleteItem(auxCounter.getNode().getValue());
             treeR.deleteItem(auxCounter.getNode().getValue());
-            System.out.println("O aluno " + name + " foi excluído com sucesso!");
-
+            System.out.println("\033[42m                                                                                        ");
+            System.out.println("                              O aluno foi excluído com sucesso!                                 ");
+            System.out.println("                                                                                        \033[0;0m\n");
+            
         }catch(Exception e){
-            System.out.println("Aluno não existe ou não foi cadastrado!");
+            System.out.println("\033[41m                                                                                        ");
+            System.out.println("\033[41m                     Aluno não existe ou não foi cadastrado!                            ");
+            System.out.println("                                                                                        \033[0;0m\n");
         }
-        System.out.println("==================================================================================+++---");
 
         pressEnter("Pressione 'ENTER' para ir ao menu");
     }
 
     public void deleteByRegistration(BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN){
         clearTerminal();
-        System.out.println("==================================================================================+++---");
+        System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
         System.out.println("Insira a mátricula do aluno");
         System.out.println("==================================================================================+++---");
-        Integer registration = scanner.nextInt();
-        scanner.nextLine();
-        
-        clearTerminal();
-        System.out.println("==================================================================================+++---");
         try{
-            Student auxR = new Student(registration, null, 0);
+            Integer registration = scanner.nextInt();
+            scanner.nextLine();
             
-            Counter<Student> auxCounter = treeR.searchNode(auxR);
+            clearTerminal();
+            try{
+                Student auxR = new Student(registration, null, 0);
+                
+                Counter<Student> auxCounter = treeR.searchNode(auxR);
+                
+                System.out.println(auxCounter.getNode().getValue());
+                Student auxN = new Student(0, auxCounter.getNode().getValue().toString(), 0);
+                
+                treeN.deleteItem(auxN);
+                treeR.deleteItem(auxR);
+                System.out.println("\033[42m                                                                                        ");
+                System.out.println("                              O aluno foi excluído com sucesso!                                 ");
+                System.out.println("                                                                                        \033[0;0m\n");
             
-            System.out.println(auxCounter.getNode().getValue());
-            Student auxN = new Student(0, auxCounter.getNode().getValue().toString(), 0);
-
-            treeN.deleteItem(auxN);
-            treeR.deleteItem(auxR);
-            System.out.println("O aluno de matricula " + registration + " foi excluído com sucesso!");
+            }catch(Exception e){
+                System.out.println("\033[41m                                                                                        ");
+                System.out.println("\033[41m                     Aluno não existe ou não foi cadastrado!                            ");
+                System.out.println("                                                                                        \033[0;0m\n");
+            }
 
         }catch(Exception e){
-            System.out.println(e);
-            System.out.println("Aluno não existe ou não foi cadastrado!");
+            System.out.println("\033[41m                                                                                        ");
+            System.out.println("\033[41m                          Digite um número inteiro                                      ");
+            System.out.println("                                                                                        \033[0;0m\n");
         }
-        System.out.println("==================================================================================+++---");
-
         pressEnter("Pressione 'ENTER' para ir ao menu");
     }
 
     public void insertOnTree(BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN){
         clearTerminal();
-        System.out.println("==================================================================================+++---");
+        System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
         System.out.println("Insira os dados do aluno");
         System.out.println("==================================================================================+++---");
         System.out.println("Matricula -------++");
@@ -149,18 +170,20 @@ public class UI {
         Student student = new Student(registration, name, grade);
         
         clearTerminal();
-        System.out.println("==================================================================================+++---");
         treeN.insertNode(student);
         treeR.insertNode(student);
-        System.out.println("Aluno '" + name + "' adicionado com sucesso!");
-        System.out.println("==================================================================================+++---");
+
+        System.out.println("\033[42m                                                                                        ");
+        System.out.println("\033[42m                               ALUNO ADICIONADO                                         ");
+        System.out.println("                                                                                        \033[0;0m\n");
+            
 
         pressEnter("Pressione 'ENTER' para ir ao menu");
     }
     
     public void generateOutputFile(BinaryTreeRecursive<Student> treeR) throws IOException {
         clearTerminal();
-        System.out.println("==================================================================================+++---");
+        System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
         System.out.println("Insira o nome do arquivo que deseja salvar. Apenas o nome sem extensão!");
         System.out.println("==================================================================================+++---");
         String path = scanner.nextLine();
@@ -194,7 +217,7 @@ public class UI {
     public void readFile(BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN){
 
         clearTerminal();
-        System.out.println("==================================================================================+++---");
+        System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
         System.out.println("Insira o nome do arquivo. Apenas o nome sem extensão!");
         System.out.println("==================================================================================+++---");
         String path = scanner.nextLine();
@@ -229,12 +252,13 @@ public class UI {
             System.out.println("==================================================================================+++---");
         } catch (IOException e) {
             System.out.println("==================================================================================+++---");
-            System.out.println("Erro na leitura do Arquivo: " + e.getMessage());
-            System.out.println("==================================================================================+++---");
+            System.out.println("\033[31mErro na leitura do Arquivo: " + e.getMessage());
+            System.out.println("\033[1m" +"\033[33m" +"==================================================================================+++---");
         }
 
         pressEnter("Aperte 'ENTER' para voltar ao menu");
     }
+    
     public void displayStatisticsByRegistration(BinaryTreeRecursive<Student> treeR) {
         System.out.println("A arvore possui: " + treeR.getNodesNum() + " elementos.");
         System.out.println("Altura da arvore: " + treeR.getHeight(treeR.rootNode));
@@ -254,7 +278,7 @@ public class UI {
         System.out.flush();
     }
 
-    public void printSpootifyLogo(){
+    public void printLogo(){
         
         System.out.println("\033[1m" +"\033[33m"
         + "\n _     _                          _"                 
@@ -265,7 +289,7 @@ public class UI {
         + "\n|_.__/|_|_| |_|\\__,_|_|   \\__, |  \\__|_|  \\___|\\___|"
         + "\n                           __/ |                    "
         + "\n                          |___/                     ");
-        System.out.println("\n \033[0;0m by: Marquin e Dudu\n");
+        System.out.println("\n\033[0;0mby: Marcos Faria e Eduardo Próspero\n");
     }
 
     public void pressEnter(String text){
@@ -296,75 +320,4 @@ public class UI {
         return actualCommand;
     }
 
-    public static void main(String[] args) throws IOException{
-
-        UI ui = new UI();
-        Boolean isRunning = true;
-        
-        //Criando árvores
-        StudentNameComparator nameComparator = new StudentNameComparator();
-        StudentRegistrationComparator resgistrationComparator = new StudentRegistrationComparator();
-
-        BinaryTreeRecursive<Student> treeRegistration = new BinaryTreeRecursive<>(resgistrationComparator);
-        BinaryTreeRecursive<Student> treeName = new BinaryTreeRecursive<>(nameComparator);
-
-        ui.printSpootifyLogo();
-        ui.pressEnter("Pressione 'ENTER' para ir ao menu");
-
-        while(isRunning){
-            switch(ui.menuSelection()){
-                case 1: //Busca por matricula
-                    ui.searchByRegistration(treeRegistration);
-                    break;
-                case 2: //Busca por nome
-                    ui.searchByName(treeName);
-                    break;
-                case 3://Excluir por matricula
-                    ui.deleteByRegistration(treeRegistration, treeName);
-                    break;
-                case 4://Excluir por nome
-                    ui.deleteByName(treeRegistration, treeName);
-                    break;
-                case 5://Incluir aluno
-                    ui.insertOnTree(treeRegistration, treeName);
-                    break;
-                case 6://Imprimindo árvore
-                    ui.clearTerminal();
-                    treeRegistration.printIndented(treeRegistration.rootNode, "", true);
-                    ui.pressEnter("Árvore organizada por Matricula\nAperte 'ENTER' para continuar!");
-                    ui.clearTerminal();
-                    treeName.printIndented(treeName.rootNode, "", true);
-                    ui.pressEnter("Árvore organizada por Nome\nAperte 'ENTER' para continuar!");
-                    break;
-                case 7:
-                    ui.clearTerminal();
-                    System.out.println("==================================================================================+++---");
-                    System.out.println("Estatisticas - Árvore Organizada por Mátricula");
-                    System.out.println("==================================================================================+++---");
-                
-                    ui.displayStatisticsByRegistration(treeRegistration);
-                    ui.pressEnter("Árvore organizada por Nome\nAperte 'ENTER' para continuar!");
-                    break;
-                case 8:
-                    ui.clearTerminal();
-                    System.out.println("==================================================================================+++---");
-                    System.out.println("Estatisticas - Árvore Organizada por Nome");
-                    System.out.println("==================================================================================+++---");
-
-                    ui.displayStatisticsByName(treeName);
-                    ui.pressEnter("Árvore organizada por Nome\nAperte 'ENTER' para continuar!");
-                    break;
-                case 9:
-                    ui.readFile(treeRegistration, treeName);
-                    break;
-                case 10://Sair e salvar arquivo
-                    ui.generateOutputFile(treeRegistration);
-                    isRunning = false;
-                    break;
-                default:
-                    break;
-            }
-        }
-                
-    }
 }

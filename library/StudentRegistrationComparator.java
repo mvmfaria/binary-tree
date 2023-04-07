@@ -1,3 +1,4 @@
+package library;
 import java.util.Comparator;
 
 public class StudentRegistrationComparator implements Comparator<Student>{

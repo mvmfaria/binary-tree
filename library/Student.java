@@ -1,3 +1,4 @@
+package library;
 public class Student implements Comparable<Student>{
     private String name;
     private int registration;

@@ -1,3 +1,4 @@
+package library;
 public class Node<T>{
     private T value;
     private Node<T> leftNode;
