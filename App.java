@@ -7,6 +7,11 @@ import library.StudentRegistrationComparator;
 import library.UI;
 
 public class App {
+
+    /*
+     * Nesse arquivo apenas instanciamos e realizamos as chamadas dos metodos da classe UI
+     * assim como a instancialização das nossas duas árvores
+     */
     public static void main(String[] args) throws IOException{
 
         UI ui = new UI();
@@ -23,6 +28,8 @@ public class App {
         ui.pressEnter("Pressione 'ENTER' para ir ao menu");
 
         while(isRunning){
+
+            
             switch(ui.menuSelection()){
                 case 1: //Busca por matricula
                     ui.searchByRegistration(treeRegistration);

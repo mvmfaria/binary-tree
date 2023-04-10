@@ -14,19 +14,16 @@ public class BinaryTreeRecursive<T>{
     }
 
     // Methods
+
+    /*
+     * Esse método recebe um valor do tipo genérico, criamos um nó com o valor de entrada
+     * após isso verificamos se a árvore está vazia, caso sim, adicionamos esse nó na raiz da árvore
+     * caso contrário, chamamos o método 'insertNodeRecursive()' para inserirmos utilizando a recursão
+     */
     public void insertNode(T value){
         
-        // Creating node
         Node<T> newNode = new Node<T>(value);
         
-        // Testing if the root node is null 
-        // if(this.rootNode.getValue() == null){
-            //     this.rootNode.setValue(newNode.getValue());
-            // } else{
-                //     insertNodeRecursive(this.rootNode, newNode);
-                // }   
-        
-        //(foi necessário uma alteração nessa verificação, pois, caso o root não existisse, não conseguiríamos acessar os métodos getValue() and setValue()).
         if(this.rootNode == null){
             this.rootNode = newNode;
         } else{
@@ -34,6 +31,13 @@ public class BinaryTreeRecursive<T>{
         }
     }
 
+    /*
+     * Esse método recebe dois nós do tipo genérico, um do nó que desejamos comparar e outro do nó atual
+     * realizamos a comparação para acharmos onde deveremos inserir o nó, verificando se é maior ou menor
+     * e caso seja nos dois casos realizamos outra comparação pra saber se existe o nó filho na posição 
+     * que desejamos adicionar, caso sim chamamos o método novamente passando o nó filho como nó atual
+     * caso contrario, adicionamos o nó na posição atual
+     */
     private void insertNodeRecursive(Node<T> currentNode, Node<T> newNode){       
         if(comparator.compare(newNode.getValue(), currentNode.getValue()) > 0){
             if(!currentNode.hasRight()){
@@ -50,12 +54,28 @@ public class BinaryTreeRecursive<T>{
         }
     }
     
+
+    /*
+     * O método de busca recebe um valor genérico a ser buscado, tem como retorno um objeto da classe 'Counter'
+     * que contém a quantidade de nós percorrido, e o nó encontrado.
+     * 
+     * O método utiliza instancia um objeto do tipo counter utilizando a raiz da árvore, incrementando o contador
+     * e retornando a chamada do método recursivamente
+     */
     public Counter<T> searchNode(T value){
         Counter<T> counter = new Counter<>(getRootNode());
         counter.increment();
         return searchNodeRecursive(value, counter);
     }
 
+    /*
+     * O método recursivo de busca recebe um valor genérico a ser buscado e um objeto do tipo counter
+     * e tem como retorno um objeto da classe 'Counter' que contém a quantidade de nós percorrido,
+     * e o nó encontrado.
+     * 
+     * Fazemos as mesmas comparações utilizadas no método "insertNodeRecursive()" porém, se chegarmos ao fim
+     * das comparações sem encontrarmos o Nó, retornamos null indicando que não existe o valor na árvore
+     */
     private Counter<T> searchNodeRecursive(T value, Counter<T> counter){
         if(counter.getNode() != null){
             if(comparator.compare(value, counter.getNode().getValue()) == 0){
@@ -82,6 +102,21 @@ public class BinaryTreeRecursive<T>{
         }return null;
     }
 
+    /*
+     * Esse método recebe um valor genérico, realizamos a busca para encontrarmos o nó a ser deletado
+     * da mesma forma que fizemos no método anterior, porém, sem recursividade, caso encontrado o nó existem
+     * três casos para realizarmos a exclusão de um item, e a lógica de cada é:
+     * -  Caso 1: Nó sem filhos
+     *      Nesse caso, verificamos de qual lado o nó esta vinculado ao pai, logo após
+     *      mudamos o valor do seu ponteiro para 'null'
+     * - Caso 2: Nó com um filho
+     *      Já nesse caso, além do nó, utilizaremos seu pai, e trocaremos o ponteiro do nó pai
+     *      que aponta para o nó que será excluido, para o único nó filho do nó deletado
+     * - Caso 3: Nó com dois filhos
+     *      Utilizamos a implementação que encontra o valor mininmo da direita, onde utilizamos um nó auxiliar
+     *      para salvarmos o valor mininmo da direita do nó que será deletado, após chamamos o método recursivamente
+     *      para excluirmos o valor mininmo da direita, e logo depois mudamos o valor do nó que seria deletado
+     */
     public void deleteItem(T value){
         Node<T> currentNode = this.rootNode;
         Node<T> parentNode = null;
@@ -294,20 +329,4 @@ public class BinaryTreeRecursive<T>{
             countNodes(node.getRightNode());
         }
     }
-
-    /*Método para auxiliar o clear da tela.*/
-    public void clearScreen() {
-        try {
-           if (System.getProperty("os.name").contains("Windows")) {
-              new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-           } else {
-              System.out.print("\033[H\033[2J");
-              System.out.flush();
-           }
-        } catch (Exception ex) {
-           System.err.println("Error: " + ex.getMessage());
-        }
-     }
-
-    
 }

@@ -16,6 +16,11 @@ public class UI {
         scanner = new Scanner(System.in);
     }
 
+    /*
+     * Nesses cinco métodos abaixo enviamos as árvores e recolhemos as entradas do terminal para chamarmos 
+     * os respectivos métodos presentes na classe BinaryTreeRecursive
+     */
+
     public void searchByRegistration(BinaryTreeRecursive<Student> tree){
         clearTerminal();
         System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
