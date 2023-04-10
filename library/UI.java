@@ -181,6 +181,13 @@ public class UI {
         pressEnter("Pressione 'ENTER' para ir ao menu");
     }
     
+    /*Para gerar o arquivo de saída (com todos os registros de alunos) foram necessárias algumas funções do Java para manipulação de arquivo.
+     * Primeiro instanciamos um objeto da classe File passando o caminho onde será criado posteriormente para o constructor da classe.
+     * Em seguida, verificamos se o arquivo já existe, caso não exista ele faz a criação utilizando o método createNewFile(). Em seguida criamos
+     * um escritor (writer) para escrever as informações dos alunos (que foram salvas na lista "students" pelo método createListInOrder()) usando
+     * o método write() dentro do loop que percorre até o último elemento da lista. Por fim, fechamos o escritor.
+     * 
+    */
     public void generateOutputFile(BinaryTreeRecursive<Student> treeR) throws IOException {
         clearTerminal();
         System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
@@ -214,6 +221,13 @@ public class UI {
     
     }
 
+    /* Para lermos o arquivo que contém os registros dos alunos utilizamos as classes (do Java) BufferReader e FileReader. Basicamente,
+    o buffer serve para armazenar temporariamente os dados lidos do arquivo em um bloco de memória intermediário antes que eles 
+    sejam processados. De forma geral, fizemos um while para pecorrer o arquivo até encontrar uma linha vazia. Para cada linha, separamos
+    as informações dos alunos usando o split() que recebe o caracter ";" que está divindo a linha e retorna uma lista contém as informações
+    separadas em cada índice. Para cada indíce da lista, atribuimos a sua respectiva variável para depois fazermos a instancia da classe
+    "Student". Por fim adicionamos o objeto a ambas árvores (de nome e matrícula) e lemos outra linha.
+    */
     public void readFile(BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN){
 
         clearTerminal();
@@ -259,6 +273,9 @@ public class UI {
         pressEnter("Aperte 'ENTER' para voltar ao menu");
     }
     
+    /*Para este método, não tem segredo. Recebemos a árvore como parâmetro e a partir dai basta pegarmos os valores dos atributos
+     * utilizando os getters da classe e printar as informações solicitadas na descrição do trabalho.
+    */
     public void displayStatisticsByRegistration(BinaryTreeRecursive<Student> treeR) {
         System.out.println("A arvore possui: " + treeR.getNodesNum() + " elementos.");
         System.out.println("Altura da arvore: " + treeR.getHeight(treeR.rootNode));
@@ -266,6 +283,7 @@ public class UI {
         System.out.println("O aluno de maior matricula é o: " + treeR.getMax().getName() + ", de matricula: " + treeR.getMax().getRegistration());
     }
 
+    /*Mesmo funcionamento do método acima, o que muda aqui é que recebemos uma "árvore de nomes" ao invés de uma de matricula.*/
     public void displayStatisticsByName(BinaryTreeRecursive<Student> treeN) {
         System.out.println("A arvore possui: " + treeN.getNodesNum() + " elementos.");
         System.out.println("Altura da arvore: " + treeN.getHeight(treeN.rootNode));

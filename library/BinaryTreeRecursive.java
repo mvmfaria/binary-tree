@@ -147,20 +147,25 @@ public class BinaryTreeRecursive<T>{
 
     }
 
-    public void createListInOrder(Node<T> node, List<T> elements){
-        if(node != null){
-            this.createListInOrder(node.getLeftNode(), elements);
-            elements.add(node.getValue());
-            this.createListInOrder(node.getRightNode(), elements);
-        }
-    }
-
+    
     // Print methods
     public void printInOrder(Node<T> node){
         if(node != null){
             this.printInOrder(node.getLeftNode());
             System.out.print(node.getValue() + " ");
             this.printInOrder(node.getRightNode());
+        }
+    }
+    
+    /*Esta função foi criada para fazer a geração da lista de alunos (pois precisávamos dos alunos ordenados em ordem crescente) que será 
+     * escrita no arquivo de saída, sua única diferença da de cima é que aqui precisamos passar uma lista como parâmetro e ao invés 
+     * de imprimos cada nó, nós adicionamos ele na lista "elements" passada como parâmetro.
+     */
+    public void createListInOrder(Node<T> node, List<T> elements){
+        if(node != null){
+            this.createListInOrder(node.getLeftNode(), elements);
+            elements.add(node.getValue());
+            this.createListInOrder(node.getRightNode(), elements);
         }
     }
 
@@ -204,8 +209,13 @@ public class BinaryTreeRecursive<T>{
         }
     }
 
-    //Percorrer em nível. Vamos utilizar fila do Java para auxiliar. Dá pra fazer recursivo, só não acho que é necessário.
-    //São necessários parâmetros para a função?
+    /*Para percorrer (e printar) a árvore em nível foi necessário utilizar uma pilha.
+     * Primeiro criamos a pilha utilizando a própria classe do Java e já adicionamos a raiz da árvore na pilha. Então fazemos um loop 
+     * que executa até a pilha estar vazia, ou seja, até todos os elementos serem percorridos. Dentro do loop, removemos o nó adicionado 
+     * utilizando o método remove() que retira o elemento da pilha e retorna qual foi o elemento removido. Atribuimos esse retorno
+     * à variável "node" para que possamos printá-lo e utilizar seus filhos. Por fim verificamos os nós filhos de "node", sempre da esquerda 
+     * para a direita, para saber se eles existem, se sim, adicionamos o filho em questão na pilha.
+     */
     public void printBreadthFirstSearch() {
         Queue<Node<T>> queue = new LinkedList<Node<T>>();
         queue.add(this.rootNode);
@@ -230,6 +240,10 @@ public class BinaryTreeRecursive<T>{
         return getMaxRecursive(rootNode);
     }
 
+    /*Aqui a ideia é bem simples, sabemos que o menor elemento da árvore é o elemento mais a esquerda. Com isso, basta ir verificando se nó
+     *que estamos verificando no momento possui um filho a esquerda, se sim chamamos o método recursivamento para esse filho, se não, o menor
+     *elemento é que estivermos verificando no momento.
+     */
     private T getMinRecursive(Node<T> parent) {
         if (parent.getLeftNode() != null) {
             return getMinRecursive(parent.getLeftNode());
@@ -237,7 +251,9 @@ public class BinaryTreeRecursive<T>{
             return parent.getValue();
         }
     }
-
+    /*E para obtermos o maior nó, seguimos a mesma lógica do método acima, porém, verificando os filhos a direita, visto que, agora o maior
+     *elemento será o nó mais a direita.
+     */
     private T getMaxRecursive(Node<T> parent) {
         if (parent.getRightNode() != null) {
             return getMaxRecursive(parent.getRightNode());
