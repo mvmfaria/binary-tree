@@ -1,3 +1,7 @@
+/*
+* Eduardo Henrique Próspero Souza e Marcos Mendes Faria
+*/
+
 package library;
 import java.util.Comparator;
 import java.util.LinkedList;
