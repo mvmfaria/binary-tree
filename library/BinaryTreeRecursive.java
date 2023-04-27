@@ -155,6 +155,7 @@ public class BinaryTreeRecursive<T>{
         // Caso 2: Nó com um filho
         if((currentNode.hasLeft() ^ currentNode.hasRight())){
             Node<T> case2Aux;
+            
             if(currentNode.hasLeft()) case2Aux = currentNode.getLeftNode();
             else case2Aux = currentNode.getRightNode();
 

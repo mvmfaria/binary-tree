@@ -102,9 +102,9 @@ public class UI {
         clearTerminal();
         try{
             Student aux = new Student(0, name, 0);
-            Counter<Student> auxCounter = treeN.searchNode(aux);
-            treeN.deleteItem(auxCounter.getNode().getValue());
-            treeR.deleteItem(auxCounter.getNode().getValue());
+            Student auxStudent = treeN.searchNode(aux).getNode().getValue();
+            treeN.deleteItem(auxStudent);
+            treeR.deleteItem(auxStudent);
             System.out.println("\033[42m                                                                                        ");
             System.out.println("                              O aluno foi excluído com sucesso!                                 ");
             System.out.println("                                                                                        \033[0;0m\n");
@@ -131,10 +131,10 @@ public class UI {
             try{
                 Student auxR = new Student(registration, null, 0);
                 
-                Counter<Student> auxCounter = treeR.searchNode(auxR);
+                Student auxStudent = treeR.searchNode(auxR).getNode().getValue();
                 
-                System.out.println(auxCounter.getNode().getValue());
-                Student auxN = new Student(0, auxCounter.getNode().getValue().toString(), 0);
+                System.out.println(auxStudent);
+                Student auxN = new Student(0, auxStudent.toString(), 0);
                 
                 treeN.deleteItem(auxN);
                 treeR.deleteItem(auxR);
@@ -183,10 +183,10 @@ public class UI {
         System.out.println("                                                                                        \033[0;0m\n");
             
 
-        pressEnter("Pressione 'ENTER' para ir ao menu");
+        pressEnter("Pressione 'ENTER' para ao menu");
     }
     
-    /*Para gerar o arquivo de saída (com todos os registros de alunos) foram necessárias algumas funções do Java para manipulação de arquivo.
+    /*Para gerar o arquivo de saída (comcolumns_str todos os registros de alunos) foram necessárias algumas funções do Java para manipulação de arquivo.
      * Primeiro instanciamos um objeto da classe File passando o caminho onde será criado posteriormente para o constructor da classe.
      * Em seguida, verificamos se o arquivo já existe, caso não exista ele faz a criação utilizando o método createNewFile(). Em seguida criamos
      * um escritor (writer) para escrever as informações dos alunos (que foram salvas na lista "students" pelo método createListInOrder()) usando
