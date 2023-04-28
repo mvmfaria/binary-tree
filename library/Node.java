@@ -20,6 +20,26 @@ public class Node<T>{
         return this.leftNode != null;
     }
 
+    public int getHeight(){
+        return getHeight(this);
+    }
+
+    private int getHeight(Node<T> node){
+        if(node == null) return -1;
+        else{
+            int hr = getHeight(node.getRightNode());
+            int hl = getHeight(node.getLeftNode());
+
+            if(hr > hl) return hr + 1;
+            else return hl + 1;
+        }
+    }
+
+    public int balanceFactor(){
+        return getHeight(this.getRightNode()) - getHeight(this.getLeftNode());
+    }
+
+
     // Getters and Setters
     public T getValue() {
         return this.value;
