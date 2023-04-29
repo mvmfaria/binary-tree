@@ -26,10 +26,15 @@ public class BinaryTreeAVL<T> extends BinaryTreeRecursive<T>{
 
     // APENAS ASSINATURA DOS MÉTODOS, PODE ALTERAR
     private Node<T> rightRotation(Node<T> node){
-        return null;
+        Node <T> auxNode = node.getLeftNode();
+        node.setLeftNode(auxNode.getRightNode());
+        auxNode.setRightNode(node);
+
+        return auxNode;
     }
 
     private Node<T> rightLeftRotation(Node<T> node){
-        return null;
+        node.setRightNode(rightRotation(node.getRightNode()));
+        return leftRotation(node);
     }
 }
