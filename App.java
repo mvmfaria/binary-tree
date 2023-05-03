@@ -44,10 +44,10 @@ public class App {
                     ui.searchByName(treeName);
                     break;
                 case 3://Excluir por matricula
-                    ui.deleteByRegistration(treeRegistration, treeName);
+                    ui.deleteByRegistration(treeRegistration, treeName,  treeRegistrationAVL, treeNameAVL);
                     break;
                 case 4://Excluir por nome
-                    ui.deleteByName(treeRegistration, treeName);
+                    ui.deleteByName(treeRegistration, treeName,  treeRegistrationAVL, treeNameAVL);
                     break;
                 // Funções árvores AVL
                 case 5: //Busca por matricula
@@ -57,7 +57,7 @@ public class App {
                     ui.searchByName(treeNameAVL);
                     break;
                 case 7://Incluir aluno
-                    ui.insertOnTree(treeRegistrationAVL, treeNameAVL);
+                    ui.insertOnTree(treeRegistration, treeName, treeRegistrationAVL, treeNameAVL);
                     break;
                 case 8://Imprimindo árvore
                     ui.clearTerminal();

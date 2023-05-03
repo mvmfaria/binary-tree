@@ -91,7 +91,7 @@ public class UI {
         
     }
 
-    public void deleteByName(BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN){
+    public void deleteByName(BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN, BinaryTreeAVL<Student> treeRAVL, BinaryTreeAVL<Student> treeNAVL){
         
         clearTerminal();
         System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
@@ -105,6 +105,9 @@ public class UI {
             Student auxStudent = treeN.searchNode(aux).getNode().getValue();
             treeN.deleteItem(auxStudent);
             treeR.deleteItem(auxStudent);
+            treeNAVL.deleteItem(auxStudent);
+            treeRAVL.deleteItem(auxStudent);
+            
             System.out.println("\033[42m                                                                                        ");
             System.out.println("                              O aluno foi excluído com sucesso!                                 ");
             System.out.println("                                                                                        \033[0;0m\n");
@@ -118,7 +121,7 @@ public class UI {
         pressEnter("Pressione 'ENTER' para ir ao menu");
     }
 
-    public void deleteByRegistration(BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN){
+    public void deleteByRegistration(BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN, BinaryTreeAVL<Student> treeRAVL, BinaryTreeAVL<Student> treeNAVL){
         clearTerminal();
         System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
         System.out.println("Insira a mátricula do aluno");
@@ -133,11 +136,10 @@ public class UI {
                 
                 Student auxStudent = treeR.searchNode(auxR).getNode().getValue();
                 
-                System.out.println(auxStudent);
-                Student auxN = new Student(0, auxStudent.toString(), 0);
-                
-                treeN.deleteItem(auxN);
-                treeR.deleteItem(auxR);
+                treeN.deleteItem(auxStudent);
+                treeR.deleteItem(auxStudent);
+                treeNAVL.deleteItem(auxStudent);
+                treeRAVL.deleteItem(auxStudent);
                 System.out.println("\033[42m                                                                                        ");
                 System.out.println("                              O aluno foi excluído com sucesso!                                 ");
                 System.out.println("                                                                                        \033[0;0m\n");
@@ -156,7 +158,7 @@ public class UI {
         pressEnter("Pressione 'ENTER' para ir ao menu");
     }
 
-    public void insertOnTree(BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN){
+    public void insertOnTree(BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN, BinaryTreeAVL<Student> treeRAVL, BinaryTreeAVL<Student> treeNAVL){
         clearTerminal();
         System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
         System.out.println("Insira os dados do aluno");
@@ -177,6 +179,8 @@ public class UI {
         clearTerminal();
         treeN.insertNode(student);
         treeR.insertNode(student);
+        treeNAVL.insertNode(student);
+        treeRAVL.insertNode(student);
 
         System.out.println("\033[42m                                                                                        ");
         System.out.println("\033[42m                               ALUNO ADICIONADO                                         ");
