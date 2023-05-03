@@ -31,31 +31,28 @@ public class BinaryTreeRecursive<T>{
         if(this.rootNode == null){
             this.rootNode = newNode;
         } else{
-            insertNodeRecursive(this.rootNode, newNode);
+            this.rootNode = insertNodeRecursive(this.rootNode, newNode);
         }
-    }
 
-    /*
-     * Esse método recebe dois nós do tipo genérico, um do nó que desejamos comparar e outro do nó atual
-     * realizamos a comparação para acharmos onde deveremos inserir o nó, verificando se é maior ou menor
-     * e caso seja nos dois casos realizamos outra comparação pra saber se existe o nó filho na posição 
-     * que desejamos adicionar, caso sim chamamos o método novamente passando o nó filho como nó atual
-     * caso contrario, adicionamos o nó na posição atual
-     */
-    private void insertNodeRecursive(Node<T> currentNode, Node<T> newNode){       
+    }
+    
+
+    protected Node<T> insertNodeRecursive(Node<T> currentNode, Node<T> newNode){       
         if(comparator.compare(newNode.getValue(), currentNode.getValue()) > 0){
             if(!currentNode.hasRight()){
                 currentNode.setRightNode(newNode);
             }else{
-                insertNodeRecursive(currentNode.getRightNode(), newNode);
+                currentNode.setRightNode(insertNodeRecursive(currentNode.getRightNode(), newNode));
             }
         }else{
             if(!currentNode.hasLeft()){
                 currentNode.setLeftNode(newNode);
             }else{
-                insertNodeRecursive(currentNode.getLeftNode(), newNode);
+                currentNode.setLeftNode(insertNodeRecursive(currentNode.getLeftNode(), newNode));
             }
         }
+        
+        return currentNode;
     }
     
 

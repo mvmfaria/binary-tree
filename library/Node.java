@@ -36,7 +36,19 @@ public class Node<T>{
     }
 
     public int balanceFactor(){
-        return getHeight(this.getRightNode()) - getHeight(this.getLeftNode());
+        if(this.hasLeft()){
+            if(this.hasRight()){
+                return getHeight(this.getRightNode()) - getHeight(this.getLeftNode());
+            }else{
+                return (- getHeight(this.getLeftNode()));
+            }
+        }else{
+            if(this.hasRight()){
+                return getHeight(this.getRightNode());
+            }else{
+                return (-1);
+            }
+        }
     }
 
 

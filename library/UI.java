@@ -18,7 +18,7 @@ public class UI {
 
     /*
      * Nesses cinco métodos abaixo enviamos as árvores e recolhemos as entradas do terminal para chamarmos 
-     * os respectivos métodos presentes na classe BinaryTreeRecursive
+     * os respectivos métodos presentes na classe BinaryTree
      */
 
     public void searchByRegistration(BinaryTreeRecursive<Student> tree){
@@ -233,7 +233,7 @@ public class UI {
     separadas em cada índice. Para cada indíce da lista, atribuimos a sua respectiva variável para depois fazermos a instancia da classe
     "Student". Por fim adicionamos o objeto a ambas árvores (de nome e matrícula) e lemos outra linha.
     */
-    public void readFile(BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN){
+    public void readFile(BinaryTreeRecursive<Student> treeR, BinaryTreeRecursive<Student> treeN, BinaryTreeAVL<Student> treeRAVL, BinaryTreeAVL<Student> treeNAVL){
 
         clearTerminal();
         System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
@@ -260,8 +260,10 @@ public class UI {
 
                 Student student = new Student(resgistration, name, grade);
 
+                treeRAVL.insertNode(student);
                 treeR.insertNode(student);
                 treeN.insertNode(student);
+                treeNAVL.insertNode(student);
 
                 line = buffer.readLine();
 
@@ -281,19 +283,14 @@ public class UI {
     /*Para este método, não tem segredo. Recebemos a árvore como parâmetro e a partir dai basta pegarmos os valores dos atributos
      * utilizando os getters da classe e printar as informações solicitadas na descrição do trabalho.
     */
-    public void displayStatisticsByRegistration(BinaryTreeRecursive<Student> treeR) {
-        System.out.println("A arvore possui: " + treeR.getNodesNum() + " elementos.");
-        System.out.println("Altura da arvore: " + treeR.getHeight(treeR.rootNode));
-        System.out.println("O aluno de menor matricula é o: " + treeR.getMin().getName() + ", de matricula: " + treeR.getMin().getRegistration());
-        System.out.println("O aluno de maior matricula é o: " + treeR.getMax().getName() + ", de matricula: " + treeR.getMax().getRegistration());
-    }
-
-    /*Mesmo funcionamento do método acima, o que muda aqui é que recebemos uma "árvore de nomes" ao invés de uma de matricula.*/
-    public void displayStatisticsByName(BinaryTreeRecursive<Student> treeN) {
-        System.out.println("A arvore possui: " + treeN.getNodesNum() + " elementos.");
-        System.out.println("Altura da arvore: " + treeN.getHeight(treeN.rootNode));
-        System.out.println("O primeiro aluno na ordem alfabética é: " + treeN.getMin().getName() + ", de matricula: " + treeN.getMin().getRegistration());
-        System.out.println("O último aluno na ordem alfabética é: " + treeN.getMax().getName() + ", de matricula: " + treeN.getMax().getRegistration());
+    public void displayStatistics(BinaryTreeRecursive<Student> tree) {
+        if(tree.getRootNode() == null) System.out.println("A árvore está vazia!");
+        else{
+            System.out.println("A arvore possui: " + tree.getNodesNum() + " elementos.");
+            System.out.println("Altura da arvore: " + tree.getRootNode().getHeight());
+            System.out.println("O aluno de menor matricula é o: " + tree.getMin().getName() + ", de matricula: " + tree.getMin().getRegistration());
+            System.out.println("O aluno de maior matricula é o: " + tree.getMax().getName() + ", de matricula: " + tree.getMax().getRegistration());
+        }
     }
 
     public void clearTerminal(){
@@ -330,11 +327,12 @@ public class UI {
         System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
         System.out.println("Escolha uma das opçôes abaixo");
         System.out.println("==================================================================================+++---");
-        System.out.println("\033[0;0m1. Busca por matricula\t\t| 2. Busca por nome ");
-        System.out.println("3. Excluir por matricula\t| 4. Excluir por nome\t");
-        System.out.println("5. Incluir aluno\t\t| 6. Imprimir árvore");
-        System.out.println("7. Estatísticas (por matricula)\t| 8. Estatísticas (por nome)");
-        System.out.println("9. Preencher árvore com arquivo\t| 10. Sair");
+        System.out.println("\033[0;0m1. Busca por matricula\t\t\t| 2. Busca por nome ");
+        System.out.println("3. Excluir por matricula\t\t| 4. Excluir por nome\t");
+        System.out.println("5. Busca por matricula - AVL\t\t| 6. Busca por nome - AVL");
+        System.out.println("7. Incluir aluno\t\t\t| 8. Imprimir árvore");
+        System.out.println("9. Estatísticas (por matricula)\t\t| 10. Estatísticas (por nome)");
+        System.out.println("11. Preencher árvore com arquivo\t| 12. Sair");
 
         
 

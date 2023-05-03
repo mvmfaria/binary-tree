@@ -1,5 +1,6 @@
 import java.io.IOException;
 
+import library.BinaryTreeAVL;
 import library.BinaryTreeRecursive;
 import library.Student;
 import library.StudentNameComparator;
@@ -23,6 +24,9 @@ public class App {
 
         BinaryTreeRecursive<Student> treeRegistration = new BinaryTreeRecursive<>(resgistrationComparator);
         BinaryTreeRecursive<Student> treeName = new BinaryTreeRecursive<>(nameComparator);
+        BinaryTreeAVL<Student> treeRegistrationAVL = new BinaryTreeAVL<>(resgistrationComparator);
+        BinaryTreeAVL<Student> treeNameAVL = new BinaryTreeAVL<>(nameComparator);
+        
 
         ui.printLogo();
         ui.pressEnter("Pressione 'ENTER' para ir ao menu");
@@ -31,6 +35,8 @@ public class App {
 
             
             switch(ui.menuSelection()){
+
+                // Funções árvores binárias
                 case 1: //Busca por matricula
                     ui.searchByRegistration(treeRegistration);
                     break;
@@ -43,39 +49,58 @@ public class App {
                 case 4://Excluir por nome
                     ui.deleteByName(treeRegistration, treeName);
                     break;
-                case 5://Incluir aluno
-                    ui.insertOnTree(treeRegistration, treeName);
+                // Funções árvores AVL
+                case 5: //Busca por matricula
+                    ui.searchByRegistration(treeRegistrationAVL);
                     break;
-                case 6://Imprimindo árvore
+                case 6: //Busca por nome
+                    ui.searchByName(treeNameAVL);
+                    break;
+                case 7://Incluir aluno
+                    ui.insertOnTree(treeRegistrationAVL, treeNameAVL);
+                    break;
+                case 8://Imprimindo árvore
                     ui.clearTerminal();
                     treeRegistration.printIndented(treeRegistration.getRootNode(), "", true);
                     ui.pressEnter("Árvore organizada por Matricula\nAperte 'ENTER' para continuar!");
                     ui.clearTerminal();
                     treeName.printIndented(treeName.getRootNode(), "", true);
                     ui.pressEnter("Árvore organizada por Nome\nAperte 'ENTER' para continuar!");
+                    ui.clearTerminal();
+                    treeRegistration.printIndented(treeRegistrationAVL.getRootNode(), "", true);
+                    ui.pressEnter("Árvore AVL organizada por Matricula\nAperte 'ENTER' para continuar!");
+                    ui.clearTerminal();
+                    treeName.printIndented(treeNameAVL.getRootNode(), "", true);
+                    ui.pressEnter("Árvore AVL organizada por Nome\nAperte 'ENTER' para continuar!");
                     break;
-                case 7:
+                case 9:
                     ui.clearTerminal();
                     System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
                     System.out.println("Estatisticas - Árvore Organizada por Mátricula");
                     System.out.println("==================================================================================+++---");
                 
-                    ui.displayStatisticsByRegistration(treeRegistration);
-                    ui.pressEnter("Árvore organizada por Nome\nAperte 'ENTER' para continuar!");
+                    ui.displayStatistics(treeRegistration);
+                    ui.pressEnter("Árvore organizada por Matricula\nAperte 'ENTER' para continuar!");
+                    ui.displayStatistics(treeRegistrationAVL);
+                    ui.pressEnter("Árvore AVL organizada por Matricula\nAperte 'ENTER' para continuar!");
                     break;
-                case 8:
+
+                
+                case 10:
                     ui.clearTerminal();
                     System.out.println("\033[1m" +"\033[33m" + "==================================================================================+++---");
                     System.out.println("Estatisticas - Árvore Organizada por Nome");
                     System.out.println("==================================================================================+++---");
 
-                    ui.displayStatisticsByName(treeName);
+                    ui.displayStatistics(treeName);
                     ui.pressEnter("Árvore organizada por Nome\nAperte 'ENTER' para continuar!");
+                    ui.displayStatistics(treeNameAVL);
+                    ui.pressEnter("Árvore AVL organizada por Nome\nAperte 'ENTER' para continuar!");
                     break;
-                case 9:
-                    ui.readFile(treeRegistration, treeName);
+                case 11:
+                    ui.readFile(treeRegistration, treeName, treeRegistrationAVL, treeNameAVL);
                     break;
-                case 10://Sair e salvar arquivo
+                case 12://Sair e salvar arquivo
                     ui.generateOutputFile(treeRegistration);
                     isRunning = false;
                     break;

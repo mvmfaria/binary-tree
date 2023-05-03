@@ -10,6 +10,29 @@ public class BinaryTreeAVL<T> extends BinaryTreeRecursive<T>{
         super(comp);
     }
 
+    @Override
+    protected Node<T> insertNodeRecursive(Node<T> currentNode, Node<T> newNode){
+        currentNode = super.insertNodeRecursive(currentNode, newNode);
+
+        int balanceFactor = currentNode.balanceFactor();
+
+        if(balanceFactor > 1){
+            if((currentNode.getRightNode().balanceFactor() > 0)){
+                currentNode = leftRotation(currentNode); 
+            }else{
+                currentNode = rightLeftRotation(currentNode); 
+            }
+        } else if(balanceFactor < -1){
+            if((currentNode.getLeftNode().balanceFactor() < 0)){
+                currentNode = rightRotation(currentNode); 
+            }else{
+                currentNode = leftRightRotation(currentNode); 
+            }
+        }
+
+        return currentNode;
+    }
+
     private Node<T> leftRotation(Node<T> node){
         Node <T> auxNode = node.getRightNode();
         node.setRightNode(auxNode.getLeftNode());
@@ -23,8 +46,6 @@ public class BinaryTreeAVL<T> extends BinaryTreeRecursive<T>{
         return rightRotation(node);
     }
 
-
-    // APENAS ASSINATURA DOS MÉTODOS, PODE ALTERAR
     private Node<T> rightRotation(Node<T> node){
         Node <T> auxNode = node.getLeftNode();
         node.setLeftNode(auxNode.getRightNode());
